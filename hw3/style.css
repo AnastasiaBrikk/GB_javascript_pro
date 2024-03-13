@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  #review-form {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
+    align-self: baseline;
+    padding: 5px;
+  }
+  
+  ul {
+    margin: 20px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .product_name h2:hover {
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .error-box {
+    margin: 20px;
+  }
