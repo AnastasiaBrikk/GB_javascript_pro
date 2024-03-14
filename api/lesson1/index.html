@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1</title>
+</head>
+
+<body>
+    <style>
+        button {
+            margin: 15px;
+            padding: 10px;
+            background-color: darkseagreen;
+            color: black;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(103, 144, 103);}
+
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            font-size: 24px;
+            border: 1px solid black;
+        }
+    </style>
+
+    <!-- Задание 2 -->
+
+    <!-- <button id="add-btn">Добавить элемент</button>
+    <button id="delete-btn">Удалить элемент</button>
+    <button id="clone-btn">Клонировать элемент</button>
+
+    <div class="main">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+    </div> -->
+
+    <!-- <button>Кнопка 1</button>
+    <button>Кнопка 2</button>
+    <button>Кнопка 3</button>
+
+    <a href="https://yandex.ru">Поисковик Яндекс</a> -->
+
+
+    <script>
+        // // Задание 1. Подтверждение закрытия страницы
+        // window.addEventListener("beforeunload", event => {
+        //     event.preventDefault();
+        //     event.returnValue = '';
+        // })
+
+        // Задание 2. На странице должны быть кнопки "Добавить элемент", "Удалить элемент" и "Клонировать элемент". При нажатии на кнопку "Добавить элемент" на страницу добавляется новый квадратный элемент (<div>) с размерами 100x100 пикселей. Этот элемент должен иметь класс .box и содержать текст, указывающий порядковый номер элемента (1, 2, 3 и так далее). При нажатии на кнопку "Удалить элемент" удаляется последний добавленный элемент, если таковой имеется. При нажатии на кнопку "Клонировать элемент" создается копия последнего добавленного элемента и добавляется на страницу. Все элементы имеют класс .box и стилизованы с помощью CSS. Элементы могут быть добавлены, удалены и клонированы в любом порядке и в любом количестве.
+
+        // const addBtn = document.getElementById("add-btn");
+        // const deleteBtn = document.getElementById("delete-btn");
+        // const cloneBtn = document.getElementById("clone-btn");
+        // const main = document.querySelector('.main')
+
+        // addBtn.addEventListener("click", () => {
+        //     const newBox = document.createElement("div");
+        //     newBox.className = "box";
+        //     // let numOfBox = main.childElementCount + 1;
+        //     let numOfBox = + main.lastElementChild.textContent + 1;
+        //     newBox.innerText = numOfBox;
+        //     main.append(newBox);
+
+        // });
+
+        // deleteBtn.addEventListener("click", () => {
+        //     main.lastElementChild.remove();
+        // });
+
+        // cloneBtn.addEventListener("click", () => {
+        //     const newEl = main.lastElementChild.cloneNode(true);
+        //     main.append(newEl);
+        // });
+
+        // const buttons = document.querySelectorAll('button');
+        // for(let item of buttons) {
+        //     item.onclick = function (e) {
+        //         e.target.style.color = 'red'; // e.target - источник события, то на что кликнули.
+        //     }
+        // }
+
+        //Отмена действия по умолчанию: 
+        // document.querySelector("a").addEventListener('click', e => {
+        //     e.preventDefault(); //отменяет переход по ссылки указанной в теге
+        //     alert("Перехода не будет");
+        // })
+
+
+
+
+    </script>
+</body>
+
+</html>
