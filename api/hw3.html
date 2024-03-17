@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework3</title>
+</head>
+
+<body>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #photoContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #photo {
+            max-width: 100%;
+            height: 50vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #photographerName {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        #likeButton {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #likeCount {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #photoOfDayButton {
+            margin: 0 auto;
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #likedPhotosContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #likedPhotosContainer img {
+            width: 50px;
+            margin: 5px;
+        }
+    </style>
+
+    <!-- Задание: Разработать веб-приложение, которое каждый день будет отображать новое случайное изображение из коллекции Unsplash, давая пользователю возможность узнать больше о фотографе и сделать "лайк" изображению. -->
+
+    <body>
+        <div class="wrapper">
+            <div id="photoContainer">
+                <img id="photo" alt="Random Photo" />
+                <p id="photographerName"></p>
+                <button id="likeButton">&#9829;</button>
+                <p id="likeCount">Количество: 0</p>
+            </div>
+            <button id="photoOfDayButton">Фото дня</button>
+            <div id="likedPhotosContainer">>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // ключ api Unsplash
+                const apiKey = "anN7W6vRo9gIwhRd-4aX509sOBeN8dfKXQUDKPMNDSU";
+
+                // Получение элементов DOM
+                const photoContainer = document.getElementById("photoContainer");
+                const photo = document.getElementById("photo");
+                const photographerName = document.getElementById("photographerName");
+                const likeButton = document.getElementById("likeButton");
+                const likeCount = document.getElementById("likeCount");
+                const photoOfDayButton = document.getElementById("photoOfDayButton");
+                const likedPhotosContainer = document.getElementById("likedPhotosContainer");
+
+                // Переменные для отслеживания лайков и сохраненных фотографий
+                let likes = 0;
+                let likedPhotos = [];
+
+                // Функция для получения случайной фотографии из Unsplash
+                function getRandomPhoto() {
+                    fetch(`https://api.unsplash.com/photos/random?client_id=${apiKey}`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const imageUrl = data.urls.regular;
+                            const name = data.user.name;
+
+                            // Обновление элементов DOM с информацией о фотографии
+                            photo.src = imageUrl;
+                            photographerName.textContent = `Photographer: ${name}`;
+                        })
+                        .catch((error) => console.error("Error fetching random photo:", error));
+                }
+
+                // Функция для обновления счетчика лайков
+                function updateLikes() {
+                    likeCount.textContent = `Likes: ${likes}`;
+                }
+
+                // Функция для сохранения лайков и фотографий в локальное хранилище
+                function saveToLocalStorage() {
+                    localStorage.setItem("likes", likes.toString());
+                    localStorage.setItem("likedPhotos", JSON.stringify(likedPhotos));
+                }
+
+                // Функция для загрузки лайков и фотографий из локального хранилища
+                function loadFromLocalStorage() {
+                    const savedLikedPhotos = localStorage.getItem("likedPhotos");
+
+                    if (savedLikedPhotos) {
+                        likedPhotos = JSON.parse(savedLikedPhotos);
+
+                        // Очистка контейнера перед отображением сохраненных фотографий
+                        likedPhotosContainer.innerHTML = "";
+
+                        // Отображение сохраненных фотографий в контейнере
+                        likedPhotos.forEach((photoUrl) => {
+                            const likedPhoto = document.createElement("img");
+                            likedPhoto.src = photoUrl;
+                            likedPhotosContainer.appendChild(likedPhoto);
+                        });
+                    }
+                }
+
+                // Обработчик события для кнопки "Лайк"
+                likeButton.addEventListener("click", function () {
+                    likes++;
+                    updateLikes();
+                    likedPhotos.push(photo.src); // Сохранение URL лайкнутой фотографии
+                    saveToLocalStorage();
+                });
+
+                // Обработчик события для кнопки "Фото дня"
+                photoOfDayButton.addEventListener("click", function () {
+                    // Очистка контейнера перед отображением сохраненных фотографий
+                    likedPhotosContainer.innerHTML = "";
+
+                    // Отображение лайкнутых фотографий в отдельном контейнере
+                    likedPhotos.forEach((photoUrl) => {
+                        const likedPhoto = document.createElement("img");
+                        likedPhoto.src = photoUrl;
+                        likedPhotosContainer.appendChild(likedPhoto);
+                    });
+                });
+
+                // Загрузка случайной фотографии и лайков из локального хранилища при загрузке страницы
+                getRandomPhoto();
+                loadFromLocalStorage();
+            });
+        </script>
+    </body>
+
+</html>

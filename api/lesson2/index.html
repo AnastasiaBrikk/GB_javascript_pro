@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminar 2</title>
+</head>
+
+<body>
+    <!--Задание 1. Создать навигационное меню для веб-сайта, в
+котором меняется активный пункт при клике без фактического
+перехода на другие страницы. Подсветка активного пункта: При клике на пункт меню он
+должен становиться активным, и для активного пункта должен
+применяться определенный стиль (например, изменение цвета
+фона). Если выбрать другой пункт, предыдущий должен
+перестать быть активным. Эффекты наведения: При наведении курсора на пункты меню
+должны применяться эффекты (например, изменение цвета
+текста или фона) для подсказки пользователю, что пункт меню
+является интерактивным.
+ -->
+
+    <!-- <style>
+        nav {
+            padding: 10px 300px;
+        }
+
+        .navlist {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        li {
+            list-style-type: none;
+
+        }
+
+        .navItem {
+            background-color: gray;
+            color: white;
+            font-family: Arial, sans-serif;
+            border: 1px solid darkgray;
+            font-size: 20px;
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            background-color: lightgray;
+        }
+
+
+        a.active {
+            background-color: orange;
+        }
+    </style> -->
+
+    <!-- <header class="header">
+        <nav class="nav">
+            <ul class="navlist">
+                <li><a class="navItem" href="#">О нас</a></li>
+                <li><a class="navItem" href="#">Услуги</a></li>
+                <li><a class="navItem" href="#">Портфолио</a></li>
+                <li><a class="navItem" href="#">Контакты</a></li>
+            </ul>
+        </nav>
+    </header> -->
+
+    <!-- <script>
+        // Задание 1
+        // const navLi = document.querySelectorAll("nav ul li a");
+
+        // navLi.forEach(item => {
+
+        //     item.addEventListener("click", e => {
+        //         e.preventDefault();
+
+        //         navLi.forEach(item => item.classList.remove('active'));
+
+        //         item.classList.add('active');
+        //     })
+        // })
+    </script> -->
+
+
+    <!-- Задание 2. Создайте простое модальное окно, которое появляется при клике на кнопку "Открыть
+модальное окно" и закрывается при клике на кнопку "Закрыть". Модальное окно
+должно содержать заголовок "Модальное окно" и кнопку для закрытия.
+* Модальное окно должно плавно появляться и исчезать при открытии и закрытии. -->
+    <!-- <style>
+        .modale {
+            padding: 25px;
+            margin: 10px;
+            width: 300px;
+            text-align: center;
+            background-color: white;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid lightgray;
+        }
+
+        .open {
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        button {
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+    <button class="open-btn">Открыть</button>
+    <div class="modale">
+        <h2>Модальное окно</h2>
+        <button class="close-btn">Закрыть</button>
+    </div> -->
+
+    <!-- <script>
+        const modaleDiv = document.querySelector(".modale");
+        const openBtn = document.querySelector('.open-btn').addEventListener('click', (e) => {
+            modaleDiv.classList.add('open');
+        });
+        const closeBtn = document.querySelector('.close-btn').addEventListener('click', () => {
+            modaleDiv.classList.remove("open");
+        })
+    </script> -->
+
+
+    <!-- Задание 3. У вас есть кнопка "Купить". Создайте скрипт, который при клике на эту кнопку меняет её текст на "Товар
+добавлен в корзину" в течение 2 секунд, а затем возвращает исходный текст "Купить". В обработчике
+события клика также проверьте, является ли событие доверенным. Если событие является доверенным,
+выполните изменение текста кнопки и убедитесь, что после 2 секунд текст возвращается в исходное
+состояние -->
+
+    <!-- <style>
+        button {
+            padding: 30px;
+            background-color: blue;
+            color: white;
+            transition: all 0.5s ease;
+            margin: 100px;
+            cursor: pointer;
+        }
+    </style>
+
+    <button>Купить</button>
+
+    <script>
+        const btn = document.querySelector('button').addEventListener('click', (e) => {
+            if (e.isTrusted) {
+                e.target.innerText = "Товар добавлен в корзину";
+                setTimeout(function () {
+                    e.target.innerText = "Купить";
+                }, 2000);
+            }
+        });
+    </script> -->
+
+    <!-- Задание 4. Создать простой онлайн опросник, который позволяет пользователям
+отвечать на вопросы с вариантами ответов.  -->
+
+<style>
+    /* Стили для опросника */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .question {
+        margin-bottom: 20px;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .result {
+        font-weight: bold;
+    }
+</style>
+
+<div class="question">
+    <p>Вопрос 1: Какой ваш любимый цвет?</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="q1" value="Синий"> Синий
+        </label>
+        <label>
+            <input type="radio" name="q1" value="Зеленый"> Зеленый
+        </label>
+        <label>
+            <input type="radio" name="q1" value="Красный"> Красный
+        </label>
+    </div>
+</div>
+
+<div class="question">
+    <p>Вопрос 2: Какое ваше любимое животное?</p>
+    <div class="options">
+        <label>
+            <input type="radio" name="q2" value="Собака"> Собака
+        </label>
+        <label>
+            <input type="radio" name="q2" value="Кот"> Кот
+        </label>
+        <label>
+            <input type="radio" name="q2" value="Попугай"> Попугай
+        </label>
+    </div>
+</div>
+
+<button id="submit">Завершить опрос</button>
+
+<div class="result" style="display: none;">
+    <p>Результаты:</p>
+    <p id="result-q1">Вопрос 1: <span></span></p>
+    <p id="result-q2">Вопрос 2: <span></span></p>
+</div>
+
+<script>
+    const submitButton = document.getElementById('submit');
+    const resultContainer = document.querySelector('.result');
+    const resultQ1 = document.getElementById('result-q1').querySelector('span');
+    const resultQ2 = document.getElementById('result-q2').querySelector('span');
+
+    submitButton.addEventListener('click', function () {
+        // Собираем ответы
+        const q1Answer = document.querySelector('input[name="q1"]:checked');
+        const q2Answer = document.querySelector('input[name="q2"]:checked');
+
+        if (q1Answer && q2Answer) {
+            // Отображаем результаты
+            resultQ1.textContent = q1Answer.value;
+            resultQ2.textContent = q2Answer.value;
+            resultContainer.style.display = 'block';
+
+            // Дополнительные действия, например, отправка результатов на сервер
+        } else {
+            alert('Пожалуйста, ответьте на все вопросы.');
+        }
+    });
+</script>
+
+</body>
+
+</html>

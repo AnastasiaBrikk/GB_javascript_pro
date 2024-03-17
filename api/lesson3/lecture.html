@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сетевые запросы и формы</title>
+</head>
+
+<body>
+    <!-- Задание 1. Форма с select и варианты стран. При выборе страны динамически обновляется другой элемент на странице, отображающий инфо о стране, например столица выбранной страны. -->
+
+    <!-- <h1>Выберите страну</h1>
+    <form id="country-form">
+        <select id="country-select">
+            <option value="">--Выберите страну--</option>
+            <option value="russia">Россия</option>
+            <option value="usa">США</option>
+            <option value="israel">Израиль</option>
+        </select>
+    </form>
+
+    <div class="box">
+        <h2>Столица:</h2>
+        <p id="capital-info">Выберите страну, чтобы узнать столицу.</p>
+    </div>
+
+    <script>
+        const select = document.querySelector("#country-select");
+        const capitalInfo = document.querySelector("#capital-info");
+
+        select.onchange = function () {
+            const selectedCountry = select.value;
+            console.log(selectedCountry);
+            let capital = '';
+
+            switch (selectedCountry) {
+                case 'russia':
+                    capital = 'Москва';
+                    break;
+
+                case 'usa':
+                    capital = "Вашингтон";
+                    break;
+
+                case 'israel':
+                capital = "Иерусалим";
+                    break;
+            
+                default:
+                    capital = 'Выберите страну, чтобы узнать столицу.'
+                    break;
+            }
+
+            capitalInfo.textContent = capital;
+        }
+    </script> -->
+
+    <!-- Задание 2. Сортировать товары в интернет магазине на стороне фронтенда -->
+
+    <!-- <h1>Интернет-магазин</h1>
+    <h2>Список товаров</h2>
+    <label for="sort-select">Сортировка</label>
+    <select id="sort-select">
+        <option value="">--Не выбрано--</option>
+        <option value="asc">По возрастанию цены</option>
+        <option value="desc">По убыванию цены</option>
+    </select>
+
+    <div class="item-box">
+        <ul id="product-list">
+            <li class="product-item">Товар 1 - $50</li>
+            <li class="product-item">Товар 2 - $150</li>
+            <li class="product-item">Товар 3 - $10</li>
+            <li class="product-item">Товар 4 - $500</li>
+        </ul>
+    </div>
+
+    <script>
+        const sortSelect = document.querySelector('#sort-select');
+        const productList = document.querySelector("#product-list");
+
+        const products = Array.from(document.querySelectorAll('.product-item'));
+
+        sortSelect.onchange = function () {
+            const selectedOption = sortSelect.value;
+
+            if (selectedOption === 'asc') {
+                products.sort((a, b) => {
+                    const priceA = parseInt(a.textContent.split('- $')[1]);
+                    const priceB = parseInt(b.textContent.split('- $')[1]);
+                    return priceA - priceB;
+                })
+            } else if (selectedOption === 'desc') {
+                products.sort((a, b) => {
+                    const priceA = parseInt(a.textContent.split('- $')[1]);
+                    const priceB = parseInt(b.textContent.split('- $')[1]);
+                    return priceB - priceA;
+                })
+            }
+            products.forEach(item => productList.appendChild(item)); //Обновить список в html
+        }; -->
+
+    <!-- Задание 3. Работа с сетевым запросом, получаем информацию о случайных пользователях, сортируем пользователей по возрасту или имени и выводим -->
+    <h1>Инфо о случайных пользователях</h1>
+    <label for="sort-select">Сортировка:</label>
+    <select id="sort-select">
+        <option value="name">По имени</option>
+        <option value="age">По возрасту</option>
+    </select>
+    <div id="user-list"></div>
+
+    <script>
+        'use strict'
+        const sortSelect = document.querySelector("#sort-select");
+        const userList = document.getElementById("user-list");
+
+        fetch('https://randomuser.me/api/?results=5')
+            .then(response => response.json())
+            .then(data => {
+                let users = data.results;
+
+                renderUserList(users);
+
+                sortSelect.addEventListener('change', () => {
+                    const selectedOption = sortSelect.value;
+                    users = sortUsers(users, selectedOption);
+                    renderUserList(users);
+                })
+            })
+            .catch(error => console.log(error));
+
+        function renderUserList(users) {
+            userList.innerHTML = '';
+            users.forEach(user => {
+                const userElement = createUserElement(user);
+                userList.appendChild(userElement);
+            })
+        }
+
+        function createUserElement(user) {
+            const userContainer = document.createElement('div');
+            userContainer.classList.add('user');
+            const userName = document.createElement('p');
+            userName.textContent = `Name: ${user.name.first} ${user.name.last}`;
+            userContainer.appendChild(userName);
+
+            const userAge = document.createElement('p');
+            userAge.textContent = `Age: ${user.dob.age}`;
+            userContainer.appendChild(userAge);
+
+            return userContainer;
+        }
+
+        function sortUsers(users, sortBy) {
+            return users.sort((a, b) => {
+                if(sortBy === 'name') {
+                    return a.name.first.localeCompare(b.name.first);
+                } else if (sortBy === 'age') {
+                    return a.dob.age - b.dob.age;
+                }
+            })
+        }
+    </script>
+
+
+    </script>
+</body>
+
+</html>
